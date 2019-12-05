@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.myapplication2.SquareImageView
+        android:id="@+id/squareImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="20dp"
+        android:layout_gravity="bottom"
+        android:textColor="@android:color/white"
+        android:background="#55000000"/>
+
+    <RatingBar
+        android:id="@+id/rating"
+        style="@style/rating_bar_small"
+        android:layout_gravity="bottom"
+        android:paddingBottom="5dp"
+        android:translationZ="90dp"
+        android:rating="3" />
+
+</FrameLayout>
