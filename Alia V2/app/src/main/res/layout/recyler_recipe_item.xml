@@ -46,7 +46,7 @@
             android:numStars="5"
             android:layout_marginStart="5dp"
             android:stepSize="0.1"
-            android:paddingBottom="5dp"
+            android:layout_marginBottom="5dp"
             android:rating="4"
             android:layout_alignParentBottom="true"
             android:translationZ="90dp">

@@ -1,4 +1,4 @@
-package com.example.recylerview2.BrowseRecipe;
+package com.example.recylerview2;
 
 import androidx.appcompat.app.AppCompatActivity;
 

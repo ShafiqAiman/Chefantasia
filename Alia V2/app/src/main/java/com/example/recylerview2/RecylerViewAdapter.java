@@ -1,4 +1,4 @@
-package com.example.recylerview2.BrowseRecipe;
+package com.example.recylerview2;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,17 +12,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.recylerview2.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.MyViewHolder> {
 
     private Context mcontext;
-    private List<Recipe> mData;
+    private ArrayList<Recipe> mData = new ArrayList<>();
 
-    public RecylerViewAdapter(Context mcontext, List<Recipe> mData) {
+    public RecylerViewAdapter(Context mcontext, ArrayList<Recipe> mData) {
         this.mcontext = mcontext;
         this.mData = mData;
     }
@@ -41,6 +41,8 @@ public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.
 
         holder.title_recipe.setText(mData.get(position).getName());
         Picasso.get().load(mData.get(position).getImage()).into(holder.image_recipe);
+
+
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +56,7 @@ public class RecylerViewAdapter extends RecyclerView.Adapter<RecylerViewAdapter.
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return (mData == null) ? 0 : mData.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

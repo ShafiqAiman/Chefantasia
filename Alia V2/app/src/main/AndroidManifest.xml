@@ -9,9 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BrowseRecipe.RecipeInterface"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name=".BrowseRecipe.MainActivity">
+<activity android:name=".BrowseRecipe">
+
+</activity>
+        <activity
+            android:name=".RecipeInterface"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".testing.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
