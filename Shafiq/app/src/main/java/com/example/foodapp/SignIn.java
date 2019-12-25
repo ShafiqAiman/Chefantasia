@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.foodapp.Common.Common;
 import com.example.foodapp.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +26,7 @@ public class SignIn extends AppCompatActivity {
     EditText edtPhone,edtPassword;
     Button btnSignIn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,7 @@ public class SignIn extends AppCompatActivity {
 
         btnSignIn = (Button)findViewById(R.id.btnSignIn);
 
+
         //init firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("User");
@@ -41,9 +45,10 @@ public class SignIn extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                table_user.addValueEventListener(new ValueEventListener() {
 
-                    /*ProgressDialog mDialog = new ProgressDialog(SignIn.this);
+                table_user.addValueEventListener(new ValueEventListener() {
+                    /*
+                    ProgressDialog mDialog = new ProgressDialog(SignIn.this);
                     mDialog.setMessage("Please waiting...");
                     mDialog.show();*/
 
@@ -57,7 +62,10 @@ public class SignIn extends AppCompatActivity {
                             //mDialog.dismiss();
                             User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
                             if (user.getPassword().equals(edtPassword.getText().toString())) {
-                                Toast.makeText(SignIn.this, "Sign in successfully", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(SignIn.this, "Sign in successfully", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(SignIn.this, Home.class));
+                                Common.currentUser = user;
+                                finish();
                             } else {
                                 Toast.makeText(SignIn.this, "Wrong Password!", Toast.LENGTH_SHORT).show();
                             }
