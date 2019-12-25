@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecipeInterface">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="263dp"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="23dp"
+            tools:srcCompat="@tools:sample/avatars" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:textSize="30sp"
+                android:textColor="@color/colorPrimaryDark"
+                tools:layout_editor_absoluteX="200dp"
+                tools:layout_editor_absoluteY="24dp" />
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/MyRating2"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:paddingBottom="5dp"
+                android:rating="4"
+                android:stepSize="0.1">
+
+            </androidx.appcompat.widget.AppCompatRatingBar>
+
+            <TextView
+                android:id="@+id/ratingnumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/textView"
+                android:layout_toEndOf="@+id/MyRating2"
+                android:text="(30 Reviews)"
+                android:textSize="12sp"
+                tools:layout_editor_absoluteX="200dp"
+                tools:layout_editor_absoluteY="24dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="110dp"
+    android:layout_height="140dp"
+    android:layout_margin="3dp">
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relativelayout"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/itemImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:foreground="@drawable/trending_gradient_shape"></ImageView>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="9dp"
+            android:layout_marginStart="5dp"
+            android:paddingTop="5dp"
+            android:text="Hello"
+            android:maxLine="2"
+            android:ellipse="end"
+            android:textSize="14sp"
+            android:layout_marginEnd="5dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+
+            android:textColor="@android:color/white">
+
+        </TextView>
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/MyRating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:layout_marginStart="5dp"
+            android:stepSize="0.1"
+            android:layout_marginBottom="5dp"
+            android:rating="4"
+            android:layout_alignParentBottom="true"
+            android:translationZ="90dp">
+
+        </androidx.appcompat.widget.AppCompatRatingBar>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
