@@ -1,23 +1,18 @@
 package com.example.tired.Model;
 
 public class ItemData {
-    private String Name, Image, Ingredient, MenuID;
+    private String Name, Image, Ingredient, MenuId;
     private float Rating;
 
-    public ItemData(String name, String image, String ingredient, String MenuID, float rating) {
+    public ItemData(String name, String image, String ingredient, String menuId, float rating) {
         Name = name;
         Image = image;
         Ingredient = ingredient;
+        MenuId = menuId;
         Rating = rating;
-        this.MenuID = MenuID;
     }
 
-    public String getMenuID() {
-        return MenuID;
-    }
-
-    public void setMenuID(String menuID) {
-        MenuID = menuID;
+    public ItemData() {
     }
 
     public String getName() {
@@ -44,6 +39,14 @@ public class ItemData {
         Ingredient = ingredient;
     }
 
+    public String getMenuId() {
+        return MenuId;
+    }
+
+    public void setMenuId(String menuId) {
+        MenuId = menuId;
+    }
+
     public float getRating() {
         return Rating;
     }
@@ -51,10 +54,4 @@ public class ItemData {
     public void setRating(float rating) {
         Rating = rating;
     }
-
-    public ItemData(){
-
-    }
-
-
 }

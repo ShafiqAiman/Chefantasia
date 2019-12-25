@@ -1,7 +1,6 @@
 package com.example.tired.CategoryRecipe;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,11 +19,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Western extends AppCompatActivity {
     ArrayList<ItemData> recipeList;
     FirebaseDatabase db;
-    MyItemAdapter myAdapter;
+    RecylerViewAdapter myAdapter;
     RecyclerView myrv;
 
     @Override
@@ -39,16 +39,22 @@ public class Western extends AppCompatActivity {
         myrv.setLayoutManager(new GridLayoutManager(this,3));
 
         db = FirebaseDatabase.getInstance();
-        DatabaseReference ref = db.getReference("MyData").child("3").child("listItem");
+        DatabaseReference ref = db.getReference("Foods");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot d: dataSnapshot.getChildren()){
+                ArrayList<ItemData> itemDataArrayList = new ArrayList<>();
+
+                for(DataSnapshot groupsnapshot: dataSnapshot.getChildren()){
                     ItemData itemData = new ItemData();
-                    itemData = d.getValue(ItemData.class);
-                    recipeList.add(itemData);
+                    itemData = groupsnapshot.getValue(ItemData.class);
+                    if(itemData.getMenuId().equals("01")){
+                        itemDataArrayList.add(itemData);
+                    }
+
                 }
-                myAdapter = new MyItemAdapter(Western.this,recipeList);
+                Collections.shuffle(itemDataArrayList);
+                myAdapter = new RecylerViewAdapter(Western.this,itemDataArrayList);
                 myrv.setAdapter(myAdapter);
             }
 

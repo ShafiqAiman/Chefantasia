@@ -2,13 +2,11 @@ package com.example.tired.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.provider.Browser;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -87,14 +85,13 @@ public class MyItemGroupAdapter extends RecyclerView.Adapter<MyItemGroupAdapter.
                             intent= new Intent(context, Recommeded.class);
                             break;
                         case 2:
-                            intent = new Intent(context,Asian.class);
+                            intent = new Intent(context,Western.class);
                             break;
                         case 3:
-                            intent = new Intent(context, Western.class);
+                            intent = new Intent(context, Asian.class);
                             break;
                             default:
                                 intent = new Intent(context,BrowseRecipe.class);
-                                break;
 
                     }
                     context.startActivity(intent);

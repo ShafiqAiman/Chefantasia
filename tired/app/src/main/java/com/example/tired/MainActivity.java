@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements IFirebaseLoaderLi
         setContentView(R.layout.activity_main);
 
         //init
-        myData = FirebaseDatabase.getInstance().getReference("Foods");
+        myData = FirebaseDatabase.getInstance().getReference();
         dialog = new SpotsDialog.Builder().setContext(this).build();
         iFirebaseLoaderListener = this;
 
@@ -60,81 +60,111 @@ public class MainActivity extends AppCompatActivity implements IFirebaseLoaderLi
     private void getFirebaseData() {
         dialog.show();
 
-        ArrayList<ItemData> trial = new ArrayList<>();
-        myData.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        myData.child("Foods").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 List<ItemGroup> itemGroups = new ArrayList<>();
-                ItemGroup itemGroup;
-                ArrayList<ItemData> trial = new ArrayList<>();
-                ItemData itemData = new ItemData();
-              for(int i =0; i<2;i++){
-                  itemGroup = new ItemGroup();
+                ItemGroup itemGroup = new ItemGroup();
+                ArrayList<ItemData> itemDataArrayList = new ArrayList<>();
+                ArrayList<ItemData> itemDataArrayList2 = new ArrayList<>();
 
-                  switch(i){
-                      case 0:
-                          itemGroup.setCat_Title("Favourite");
-                          break;
-                      case 1:
-                          itemGroup.setCat_Title("Recommended for you");
-                          break;
-                          default:
-                  }
-                   trial = new ArrayList<>();
+                for(DataSnapshot groupsnapshot: dataSnapshot.getChildren()){
+                    ItemData itemData = new ItemData();
+                    itemData = groupsnapshot.getValue(ItemData.class);
+                    itemDataArrayList.add(itemData);
 
-                  for(DataSnapshot d: dataSnapshot.getChildren()){
+                }
 
-                          itemData = new ItemData();
-                          itemData = d.getValue(ItemData.class);
+                itemGroup = new ItemGroup();
+                itemGroup.setCat_Title("Favourite");
 
-                          /*if(i==0 && itemData.getRating()>=4f){
-                              trial.add(itemData);
-                          }else if(i==1){
-                              trial.add(itemData);
-                          }else{}*/
-                      trial.add(itemData);
-                  }
-                  Collections.shuffle(trial);
-                  itemGroup.setListItem(trial);
-                  if(itemGroup.listItem.size()>10)  // limit the preview of data
-                      itemGroup.listItem.subList(10,itemGroup.listItem.size()).clear();
-                  itemGroups.add(itemGroup);
-              } // end fav and recommend
-
-                trial = new ArrayList<>();
-                itemData = new ItemData();
-                for(int i =0; i<2;i++){
-                    itemGroup = new ItemGroup();
-
-                    switch(i){
-                        case 0:
-                            itemGroup.setCat_Title("Western");
-                            break;
-                        case 1:
-                            itemGroup.setCat_Title("Asian");
-                            break;
-                        default:
+                for(ItemData trial: itemDataArrayList){
+                    if (trial.getRating()>=4.f){
+                        itemDataArrayList2.add(trial);
                     }
-                    trial = new ArrayList<>();
+                }
 
-                    for(DataSnapshot d: dataSnapshot.getChildren()){
+                Collections.shuffle(itemDataArrayList2);
+                if(itemDataArrayList2.size()>10){
+                    itemDataArrayList2.subList(10,itemDataArrayList2.size()).clear();
+                }
+                itemGroup.setListItem(itemDataArrayList2);
+                itemGroups.add(itemGroup);
 
-                        itemData = new ItemData();
-                        itemData = d.getValue(ItemData.class);
+                // recommended for you
+                itemGroup = new ItemGroup();
+                itemGroup.setCat_Title("Recommended for you");
 
-                        trial.add(itemData);
+                Collections.shuffle(itemDataArrayList);
+                if(itemDataArrayList.size()>10){
+                    itemDataArrayList.subList(10,itemDataArrayList.size()).clear();
+                }
+               itemGroup.setListItem(itemDataArrayList);
+               itemGroups.add(itemGroup);
+
+                // Western
+                itemGroup = new ItemGroup();
+                itemGroup.setCat_Title("Western");
+                itemDataArrayList2 = new ArrayList<>();
+
+                for(ItemData trial: itemDataArrayList){
+                    if (trial.getMenuId().equals("01")){
+                        itemDataArrayList2.add(trial);
                     }
-                    Collections.shuffle(trial);
-                    itemGroup.setListItem(trial);
-                    if(itemGroup.listItem.size()>10)  // limit the preview of data
-                        itemGroup.listItem.subList(10,itemGroup.listItem.size()).clear();
-                    itemGroups.add(itemGroup);
-                } // end fav and recommend
+                }
+                Collections.shuffle(itemDataArrayList2);
+                if(itemDataArrayList2.size()>10){
+                    itemDataArrayList2.subList(10,itemDataArrayList2.size()).clear();
+                }
+                itemGroup.setListItem(itemDataArrayList2);
+                itemGroups.add(itemGroup);
+
+                //Asian
+                itemGroup = new ItemGroup();
+                itemGroup.setCat_Title("Asian");
+                itemDataArrayList2 = new ArrayList<>();
+
+                for(ItemData trial: itemDataArrayList){
+                    if (trial.getMenuId().equals("02")){
+                        itemDataArrayList2.add(trial);
+                    }
+                }
+                Collections.shuffle(itemDataArrayList2);
+                if(itemDataArrayList2.size()>10){
+                    itemDataArrayList2.subList(10,itemDataArrayList2.size()).clear();
+                }
+                itemGroup.setListItem(itemDataArrayList2);
+                itemGroups.add(itemGroup);
+
+               /*
+
+
+                //Asian
+
+                itemGroups = new ArrayList<>();
+                itemGroup = new ItemGroup();
+                itemDataArrayList = new ArrayList<>();
+
+                for(DataSnapshot groupsnapshot: dataSnapshot.getChildren()){
+                    ItemData itemData = new ItemData();
+                    itemData = groupsnapshot.getValue(ItemData.class);
+                    if(itemData.getMenuId()=="02"){
+                        itemDataArrayList.add(itemData);
+                    }
+                }
+                itemGroup = new ItemGroup();
+                itemGroup.setCat_Title("Asian");
+                Collections.shuffle(itemDataArrayList);
+                if(itemDataArrayList.size()>10){
+                    itemDataArrayList.subList(10,itemDataArrayList.size()).clear();
+                }
+                itemGroup.setListItem(itemDataArrayList);
+                itemGroups.add(itemGroup);*/
 
                 iFirebaseLoaderListener.onFirebaseLoadSucecess(itemGroups);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 iFirebaseLoaderListener.onFirebaseLoaderFailed(databaseError.getMessage());
@@ -142,6 +172,8 @@ public class MainActivity extends AppCompatActivity implements IFirebaseLoaderLi
         });
 
     }
+
+
 
     @Override
     public void onFirebaseLoadSucecess(List<ItemGroup> itemGroups) {
