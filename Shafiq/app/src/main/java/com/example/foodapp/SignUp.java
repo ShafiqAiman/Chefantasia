@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.foodapp.Model.User;
@@ -19,7 +21,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class SignUp extends AppCompatActivity {
 
-    MaterialEditText edtPhone,edtName,edtPassword;
+    EditText edtUsername,edtPassword,edtDPassword;
     Button btnSignUp;
 
     @Override
@@ -27,10 +29,9 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        edtName = (MaterialEditText)findViewById(R.id.edtName);
-        edtPhone = (MaterialEditText)findViewById(R.id.edtPhone);
-        edtPassword = (MaterialEditText)findViewById(R.id.edtPassword);
-
+        edtUsername = (EditText) findViewById(R.id.edtUsername);
+        edtPassword = (EditText) findViewById(R.id.edtPassword);
+        edtDPassword = (EditText) findViewById(R.id.edtDPassword);
         btnSignUp = (Button)findViewById(R.id.btnSignUp);
         //init Firebase
 
@@ -40,32 +41,48 @@ public class SignUp extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String username = edtUsername.getText().toString();
+                String pwd = edtPassword.getText().toString();
+                String cnf_pwd = edtDPassword.getText().toString();
                 final ProgressDialog mDialog = new ProgressDialog(SignUp.this);
-                mDialog.setMessage("Please waiting...");
-                mDialog.show();
 
-                table_user.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        //Check if already user phone
-                        if(dataSnapshot.child(edtPhone.getText().toString()).exists()){
-                            mDialog.dismiss();
-                            Toast.makeText(SignUp.this,"Phone Number is already registered",Toast.LENGTH_SHORT).show();
-                        }else{
-                            mDialog.dismiss();
-                            User user = new User(edtName.getText().toString(),edtPassword.getText().toString());
-                            table_user.child(edtPhone.getText().toString()).setValue(user);
-                            Toast.makeText(SignUp.this,"Sign up successfully",Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
+
+                if (username.equals("")||pwd.equals("")||cnf_pwd.equals("")){
+                    Toast.makeText(getApplicationContext(),"Field(s) cannot be empty",Toast.LENGTH_SHORT).show();
+                }else{
+
+                    if (pwd.equals(cnf_pwd)){
+                        table_user.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                //Check if already user phone
+
+                                if(dataSnapshot.child(edtUsername.getText().toString()).exists()){
+                                    mDialog.dismiss();
+                                    Toast.makeText(SignUp.this,"Username is already registered",Toast.LENGTH_SHORT).show();
+                                }else{
+                                    mDialog.dismiss();
+                                    User user = new User(edtUsername.getText().toString(),edtPassword.getText().toString());
+                                    table_user.child(edtUsername.getText().toString()).setValue(user);
+                                    Toast.makeText(SignUp.this,"Sign up successfully",Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }else{
+                        Toast.makeText(getApplicationContext(),"Password doesn't match",Toast.LENGTH_SHORT).show();
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
-            }
+
+                }
+
+        }
         });
 
     }

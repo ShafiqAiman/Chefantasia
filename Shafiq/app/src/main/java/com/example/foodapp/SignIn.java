@@ -23,7 +23,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class SignIn extends AppCompatActivity {
 
-    EditText edtPhone,edtPassword;
+    EditText edtUsername,edtPassword;
     Button btnSignIn;
 
 
@@ -32,8 +32,8 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        edtPhone = (MaterialEditText)findViewById(R.id.edtPhone);
-        edtPassword = (MaterialEditText)findViewById(R.id.edtPassword);
+        edtUsername = (EditText)findViewById(R.id.edtUsername);
+        edtPassword = (EditText) findViewById(R.id.edtPassword);
 
         btnSignIn = (Button)findViewById(R.id.btnSignIn);
 
@@ -56,11 +56,11 @@ public class SignIn extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         //Check if user not exist in database
-                        if(dataSnapshot.child(edtPhone.getText().toString()).exists()) {
+                        if(dataSnapshot.child(edtUsername.getText().toString()).exists()) {
 
                             //get user information
                             //mDialog.dismiss();
-                            User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
+                            User user = dataSnapshot.child(edtUsername.getText().toString()).getValue(User.class);
                             if (user.getPassword().equals(edtPassword.getText().toString())) {
                                 //Toast.makeText(SignIn.this, "Sign in successfully", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(SignIn.this, Home.class));
