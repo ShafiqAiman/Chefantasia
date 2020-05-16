@@ -2,8 +2,12 @@
 <resources>
     <color name="colorPrimary">#74d14c</color>
     <color name="colorPrimaryDark">#00574B</color>
+<<<<<<< HEAD
     <color name="colorAccent">#74d14c</color>
 
     <color name="overlayBackground">#008577</color>
 
+=======
+    <color name="colorAccent">#D81B60</color>
+>>>>>>> parent of 1f52aa3... Shafiq's Super Update!
 </resources>
